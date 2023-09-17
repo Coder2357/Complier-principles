@@ -16,7 +16,6 @@
 
 ; External declaration of the puts function
 declare i32 @printf(i8*, ...)
-declare i32 @scanf(i8*, ...)
 declare i32 @__isoc99_scanf(i8*, ...)
 
 
@@ -34,12 +33,9 @@ define i32 @main() {
     %stry = getelementptr inbounds [10 x i8], [10 x i8]* @.stry, i32 0, i32 0
     %strxInput = getelementptr inbounds [3 x i8], [3 x i8]* @.Input, i32 0, i32 0
     %stryInput = getelementptr inbounds [3 x i8], [3 x i8]* @.Input, i32 0, i32 0
-
-    call i32 (i8*, ...) @printf(i8* %str1)
-
+    call i32 (i8*, ...) @printf(i8* %str1)   
     
-    
-    ; Read two integers 
+    ; 读取两个数
     %x = alloca i32
     %y = alloca i32
     call i32 (i8*, ...) @printf(i8* %strx)
@@ -69,14 +65,14 @@ define i32 @main() {
     %str2= getelementptr inbounds [30 x i8], [30 x i8]* @.str2, i32 0, i32 0
     %str2Input= getelementptr inbounds [3 x i8], [3 x i8]* @.Input, i32 0, i32 0
 
-    ; control number
+    ; 控制数
     call i32 (i8*, ...) @printf(i8* %str2)
     %control = alloca i32
     call i32 (i8*, ...) @__isoc99_scanf(i8* %str2Input, i32* %control)
 
     %control_value = load i32, i32* %control
 
-    ;Initialize result = 0
+    ; 初始化结果
     %result = alloca i32
     store i32 0, i32* %result
 
@@ -119,26 +115,4 @@ define i32 @main() {
 
   end_label:
     ret i32 0
-}
-
-
-
-define i32 @add(i32 %x, i32 %y) {  
-    %sum = add i32 %x, %y  
-    ret i32 %sum  
-}
-
-define i32 @sub(i32 %x, i32 %y) {
-    %diff = sub i32 %x, %y
-    ret i32 %diff
-}
-
-define i32 @mul(i32 %x, i32 %y) {
-    %product = mul i32 %x, %y
-    ret i32 %product
-}
-
-define i32 @div(i32 %x, i32 %y) {
-    %quotient = sdiv i32 %x, %y
-    ret i32 %quotient
 }
