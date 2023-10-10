@@ -24,18 +24,18 @@ str fp, [sp, #-4]! @ pre-index mode, sp = sp - 4, push fp
 mov fp, sp
 sub sp, sp, #4 @ allocate space for local variables
 str r0, [fp, #-4] @ r0 = [fp, #-4] = n
-str r2, [fp, #-4] @ r2 = [fp, #-4] = n
+mov r1, #1
 
-
-cmp r2, #1
+.L0:
+cmp r0, #1
 ble .L1 @ If n <= 1, return 1
-
-sub r2, r2, #1 @ r2 = n - 1
-mul r0, r0, r2 @ r0 = r0 * r2 = n * (n-1)
-bl factorial 
+@ if not jump
+mul r1, r1, r0        @ r1 *= result of factorial(n-1)
+sub r0, r0, #1
+b .L0
 
 .L1:
-ldr r0, [fp, #-4]
+mov r0, r1
 .L2:
 add sp, fp, #0
 ldr fp, [sp], #4 @ post-index mode, pop fp, sp = sp + 4
